@@ -318,7 +318,7 @@
                             <div class="contact-item">
                                 <i class="bi bi-envelope"></i>
                                 <b>Email:</b>
-                                <a href="mailto:kkeducationblr@gmail.com">kkeducationblr@gmail.com</a>
+                                <a href="mailto:kkeducationblr@gmail.com">sivathereticent@gmail.com</a>
                             </div>
                         </div>
 
