@@ -46,53 +46,47 @@
 <body>
 
 <header>
-    <h1> Welcome to Siva DEVOPS AWS Portal Online Training </h1>
-    <h3>Training | Development | Consulting</h3>
+    <h1> Welcome to Siva DEVOPS Portfolio </h1>
+    <h3> DevOps Engineer || Linux • AWS • Docker • Kubernetes • CI/CD • Git </h3>
 </header>
 
 <div class="container">
 
     <!-- Server Info -->
     <div class="info-card">
-        <h3>🌐 Server Side Information</h3>
+        <h3>🌐 PROFESSIONAL SUMMARY </h3>
         <hr>
         <%
             InetAddress inetAddress = InetAddress.getLocalHost();
             String ip = inetAddress.getHostAddress();
-            out.println("<p><b>Server Host Name:</b> " + inetAddress.getHostName() + "</p>");
-            out.println("<p><b>Server IP Address:</b> " + ip + "</p>");
+            out.println("<p><b>DevOps Engineer with strong hands-on experience in Linux administration, CI/CD pipelines, containerization, infrastructure automation, Git-based workflows, and cloud fundamentals.</b> " + Skilled in configuring Jenkins pipelines, deploying applications using Docker, managing version control with Git/GitHub + "</p>");
+            out.println("<p><b> and automating repetitive tasks. </b> " + Capable of supporting both development and production environments  + "</p>");
         %>
     </div>
 
     <!-- Client Info -->
     <div class="info-card">
-        <h3>💻 Client Side Information</h3>
+        <h3>💻 TECHNICAL SKILLS </h3>
         <hr>
-        <p><b>Client IP Address:</b> <%= request.getRemoteAddr() %></p>
-        <p><b>Client Host Name:</b> <%= request.getRemoteHost() %></p>
+        <p><b> CI/CD Tools: Jenkins, </b> <%= GitHub Actions %></p>
+        <p><b>Version Control: Git, GitHub, Branching & Merge Strategies</b> <%= Containers: Docker (Images, Volumes, Networks) %></p>
     </div>
 
     <!-- Contact Info -->
     <div class="info-card text-center">
-        <img src="images/kkfunda.jpg" alt="KK FUNDA Logo" width="120" class="mb-3 rounded-circle shadow">
-        <h4>KK FUNDA</h4>
-        <p><b>Address:</b> Martha Halli, Bangalore</p>
-        <p><b>Phone:</b> +91-9676831734</p>
-        <p><b>Email:</b> <a href="mailto:kkeducationblr@gmail.com">kkeducationblr@gmail.com</a></p>
-        <a href="mailto:kkeducation@gmail.com" class="btn btn-primary mt-2">📧 Mail to KK FUNDA</a>
+        <p><b>Phone:</b> +91-xxxxxxxxx</p>
+        <p><b>Email:</b> <a href="mailto:sivathereticent@gmail.com">kkeducationblr@gmail.com</a></p>
+        <a href="mailto:sivathereticent@gmail.com" class="btn btn-primary mt-2">📧 Mail to KK FUNDA</a>
     </div>
 
     <!-- Service Links -->
     <div class="info-card text-center">
-        <h4>⚙️ Our Services</h4>
-        <p><a href="services/employee/getEmployeeDetails" class="btn btn-success">Get Employee Details</a></p>
     </div>
 
 </div>
 
 <footer>
-    <p>© 2024 KK FUNDA Training & Development Center</p>
-    <p><small>Powered by <a href="https://google.com/">KK FUNDA</a></small></p>
+    
 </footer>
 
 <!-- Bootstrap JS -->
