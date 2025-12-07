@@ -755,7 +755,7 @@
                     <div class="contact-line">
                         <i class="bi bi-envelope"></i>
                         <span><b>Email:</b>
-                            <a href="mailto:kkeducationblr@gmail.com">kkeducationblr@gmail.com</a>
+                            <a href="mailto:kkeducationblr@gmail.com">sivathereticent@gmail.com</a>
                         </span>
                     </div>
                     <div class="contact-line">
