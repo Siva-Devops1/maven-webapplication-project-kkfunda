@@ -1,6 +1,7 @@
 node
 { 
-	
+	echo "git branch Name: ${env.BRANCH_NAME}"
+	echo "build number : ${env.BUILD_NUMBER}"
 	try
 	{
 	def mavenHome=tool name: "maven-3.9.6"
