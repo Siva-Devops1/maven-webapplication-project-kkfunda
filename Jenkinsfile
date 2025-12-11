@@ -1,54 +1,87 @@
-node
-{ 
-	echo "git branch Name: ${env.BRANCH_NAME}"
-	echo "build number : ${env.BUILD_NUMBER}"
-	try
-	{
-	def mavenHome=tool name: "maven-3.9.6"
-	stage('git checkout')
-	{
-	notifyBuild('STARTED')
-	git branch: 'dev', url: 'https://github.com/Siva-Devops1/maven-webapplication-project-kkfunda.git'
-	}
-	stage('compile')
-	{
-		sh "${mavenHome}/bin/mvn compile"
-	}
-	
-	stage('Build')
-	{
-	sh "${mavenHome}/bin/mvn clean package"
-	}
-	stage('SQ Report')
-	{
-	sh "${mavenHome}/bin/mvn sonar:sonar"
-	}
-	stage('Deploy Into Nexus')
-	{
-	sh "${mavenHome}/bin/mvn deploy"
-	}
-	stage('Deploy to Tomcat') 
+pipeline 
+{
+    agent any
+    tools
     {
-      
-      sh """
+        maven "maven-3.9.6"
+        }
+
+    stages {
+                stage('git checkout')
+                {
+                  steps
+                  {
+                    notifyBuild('STARTED')
+                    git branch: 'dev', url: 'https://github.com/Siva-Devops1/maven-webapplication-project-kkfunda.git'
+                  }  
+                }
+                stage('compile')
+                {
+                steps
+                    {
+                        sh "mvn compile"
+                    }
+                    
+                    }   
+                    stage('Build')
+                        {
+                        steps
+                            {
+                                sh "mvn clean package"
+                            }
+                        }
+                    /* stage('SQ Report')
+                        {
+                        steps
+                            {
+                            sh "mvn sonar:sonar"
+                            }
+                        } */
+                    stage('Deploy into Nexus')
+                    {
+                        steps
+                            {
+                               sh "mvn clean deploy"
+                            } 
+                    }
+
+                    stage('Deploy to Tomcat')
+                    {
+                        steps
+                            {
+                                sh """
 
       curl -u admin:password \
---upload-file /var/lib/jenkins/workspace/Scriptedway_pipeline/target/maven-web-application.war \
-"http://15.207.254.190:8080/manager/text/deploy?path=/maven-web-application&update=true"
+--upload-file /var/lib/jenkins/workspace/Declarative_pipeline/target/maven-web-application.war \
+"http://52.66.241.187:8080/manager/text/deploy?path=/maven-web-application&update=true"
           
         """
-    }
-	}  //try block end
-	catch (e)  {
-	
-		currentBuild.result = "FAILED"
-		
-	}  finally {
-		//Success or failure, always send notifications
-		notifyBuild(currentBuild.result)		//function calling
-			}
-} 	//node ending
+                            }
+                    }
+                }//stages ending
+	post {
+  success {
 
+    script
+    {
+     notifyBuild(currentBuild.result)
+    }
+    
+  }
+  failure {
+
+  script
+  {
+    notifyBuild(currentBuild.result)
+
+  }
+   
+  }
+}
+                
+
+}   //pipeline ending
+        
 def notifyBuild(String buildStatus = 'STARTED') {
   // build status of null means successful
   buildStatus =  buildStatus ?: 'SUCCESS'
@@ -72,6 +105,6 @@ def notifyBuild(String buildStatus = 'STARTED') {
   }
 
   // Send notifications
-  slackSend (color: colorCode, message: summary, channel: '#scripted-notifications')
+  slackSend (color: colorCode, message: summary, channel: '#declarative_notifications')
   
 }
