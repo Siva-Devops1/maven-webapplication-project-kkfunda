@@ -104,11 +104,11 @@
 	    <snapshotRepository>
 	      <id>nexus</id>
 	      <name>KK FUNDA Snapshot Nexus Repository </name>
-	      <url>http://52.66.212.163:8081/repository/jio-snopshot/</url>
+	      <url>http://13.127.88.65:8081/repository/jio-snopshot/</url>
 	    </snapshotRepository>
 	    
-	</distributionManagement>
-	
+	</distributionManagement> 0
+=	
 	<build>
 		<finalName>maven-web-application</finalName>
 		
