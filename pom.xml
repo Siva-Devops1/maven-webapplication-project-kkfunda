@@ -107,7 +107,7 @@
 	      <url>http://13.127.88.65:8081/repository/jio-snopshot/</url>
 	    </snapshotRepository>
 	    
-	</distributionManagement> 0
+	</distributionManagement> 
 =	
 	<build>
 		<finalName>maven-web-application</finalName>
