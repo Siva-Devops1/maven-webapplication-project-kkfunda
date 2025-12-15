@@ -63,7 +63,7 @@ pipeline
                     {
                         steps
                             {
-                               build job: 'testing_UAT'  //this is downstream job for uat
+                               build job: 'Declarative_uat'  //this is downstream job for uat
                             } 
                     } 
                 }//stages ending
