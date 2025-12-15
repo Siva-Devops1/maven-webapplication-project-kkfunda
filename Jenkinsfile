@@ -1,3 +1,4 @@
+//dev Jenkins pipeline
 pipeline 
 {
     agent any
@@ -53,11 +54,18 @@ pipeline
 
       curl -u admin:password \
 --upload-file /var/lib/jenkins/workspace/Declarative_pipeline/target/maven-web-application.war \
-"http://52.66.241.187:8080/manager/text/deploy?path=/maven-web-application&update=true"
+"http://http://15.207.117.100:8080/manager/text/deploy?path=/maven-web-application&update=true"
           
         """
                             }
                     }
+                   stage('dev to qa')
+                    {
+                        steps
+                            {
+                               build job: 'testing_QA'  //this is downstream job for qa
+                            } 
+                    } 
                 }//stages ending
 	post {
   success {
@@ -105,6 +113,6 @@ def notifyBuild(String buildStatus = 'STARTED') {
   }
 
   // Send notifications
-  slackSend (color: colorCode, message: summary, channel: '#declarative_notifications')
+  slackSend (color: colorCode, message: summary, channel: '#up-n-downstream-jobs')
   
 }
