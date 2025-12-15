@@ -13,7 +13,7 @@ pipeline
                   steps
                   {
                     notifyBuild('STARTED')
-                    git branch: 'dev', url: 'https://github.com/Siva-Devops1/maven-webapplication-project-kkfunda.git'
+                    git branch: 'qa', url: 'https://github.com/Siva-Devops1/maven-webapplication-project-kkfunda.git'
                   }  
                 }
                 stage('compile')
