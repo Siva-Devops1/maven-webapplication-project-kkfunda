@@ -63,7 +63,7 @@ pipeline
                     {
                         steps
                             {
-                               build job: 'testing_QA'  //this is downstream job for qa
+                               build job: 'Declarative_qa'  //this is downstream job for qa
                             } 
                     } 
                 }//stages ending
