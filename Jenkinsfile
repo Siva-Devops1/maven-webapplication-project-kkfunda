@@ -59,7 +59,7 @@ pipeline
         """
                             }
                     }
-                   stage('dev to qa')
+                   stage('qa to uat')
                     {
                         steps
                             {
