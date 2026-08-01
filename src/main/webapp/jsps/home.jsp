@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Siva | DevOps Engineer</title>
+<title> Siva | DevOps Engineer</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
