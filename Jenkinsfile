@@ -1,70 +1,105 @@
-node {
+//Declarative pipeline
 
-    def mavenHome = tool name: 'maven'
-
-    try {
-        notifyBuild('STARTED')
-        stage('Git Checkout') {
-            git branch: 'dev',
-                url: 'https://github.com/Siva-Devops1/maven-webapplication-project-kkfunda.git'
-        }
-
-        stage('Compile') {
-            sh "${mavenHome}/bin/mvn compile"
-        }
-
-        stage('Build') {
-            sh "${mavenHome}/bin/mvn clean package"
-        }
-
-        stage('SonarQube Analysis') {
-            sh "${mavenHome}/bin/mvn sonar:sonar"
-        }
-
-        stage('Deploy to Nexus') {
-            sh "${mavenHome}/bin/mvn clean deploy"
-        }
-
-        stage('Deploy to Tomcat') {
-
-            sh """
-                curl --fail -u admin:password \
-                --upload-file target/maven-web-application.war \
-                "http://3.7.248.246:8080/manager/text/deploy?path=/maven-web-application&update=true"
-            """
-        }
-
-    } catch (Exception e) {
-
-        currentBuild.result = 'FAILED'
-        throw e
-
-    } finally {
-
-        notifyBuild(currentBuild.result)
-
+pipeline 
+{
+    agent any
+    tools
+    {
+    	maven "maven"
     }
+    stages
+    {
+    	stage('git checkout')
+    	{
+    	steps {
+    			 notifyBuild('STARTED')
+    			git branch: 'dev', url: 'https://github.com/Siva-Devops1/maven-webapplication-project-kkfunda.git'
+    		   }
+    	}
+    	stage('compile')
+    	{
+    		steps
+    		{
+    			sh "mvn compile"
+    		}
+    	}
+    	stage('Build')
+    	{
+    		steps
+    		{
+    			sh "mvn clean package"
+    		}
+    	}
+    	stage('SQ Report')
+    	{
+    		steps
+    		{
+    			sh "mvn sonar:sonar"
+    		}
+    	}
+    	stage('Deploy to nexus')
+    	{
+    		steps
+    		{
+    			sh "mvn clean deploy"
+    		}
+    	}
+    	stage('Deploy to tomcat') 
+    	{
+    		steps
+    		{
+    			sh """
+    			curl -u admin:password \
+--upload-file /var/lib/jenkins/workspace/Declarative_PL/target/maven-web-application.war \
+"http://15.207.110.53:8080/manager/text/deploy?path=/maven-web-application&update=true"
+    		
+				"""
+    		}
+    	}
+
+    } //stages ending
+
+   post {
+  success {
+
+    script
+    {
+     notifyBuild(currentBuild.result)
+    }
+    
+  }
+  failure {
+
+  script
+  {
+    notifyBuild(currentBuild.result)
+
+  }
+   
+  }
 }
 
-def notifyBuild(String buildStatus = 'STARTED') {
+} // pipeline ending
 
+
+// Notification method
+def notifyBuild(String buildStatus = 'STARTED') {
     buildStatus = buildStatus ?: 'SUCCESS'
 
-    def color = '#FF0000'
+    def colorCode
+    def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+    def summary = "${subject} (${env.BUILD_URL})"
 
-    if (buildStatus == 'STARTED') {
-        color = '#FFFF00'
-    } else if (buildStatus == 'SUCCESS') {
-        color = '#278EF5'
-    } else {
-        color = '#FF0000'
+    switch (buildStatus) {
+        case 'STARTED':
+            colorCode = '#FFFF00' // Yellow
+            break
+        case 'SUCCESS':
+            colorCode = '#00FF00' // Green
+            break
+        default:
+            colorCode = '#FF0000' // Red
     }
 
-    def summary = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
-
-    slackSend(
-        channel: '#jen-kins',
-        color: color,
-        message: summary
-    )
+    slackSend(color: colorCode, message: summary)
 }
